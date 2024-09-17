@@ -34,8 +34,8 @@ wesign_app = WesignSDK('https://api.wesign.com','<API KEY>')
 ```
 
 ### <span style="color:red;">&#x2022;</span> Exceptions :
-- InvalidHostError : Exception raised on invalid host.
-- InvalidAPIKeyError : Exception raised on invalid API key.
+- ***InvalidHostError*** : Exception raised on invalid host.
+- ***InvalidAPIKeyError*** : Exception raised on invalid API key.
 
 
 ## Usage
@@ -322,10 +322,10 @@ recipient_1 = wesign_app.add_recipient(data)
 
 
 #### <span style="color:red;">&#x2022;</span> Exceptions :
-- InvalidRecipientStructureError : Exception raised during validating recipient meta_data structure
-- InvalidFontFamilyError : Exception raised during validating font-family
-- Exception : General exception.
-- InvalidDropDownOptions : Exception raised during validating dropdown structure.
+- ***InvalidRecipientStructureError*** : Exception raised during validating recipient meta_data structure
+- ***InvalidFontFamilyError*** : Exception raised during validating font-family
+- ***Exception*** : General exception.
+- ***InvalidDropDownOptions*** : Exception raised during validating dropdown structure.
 
 ##
 
@@ -395,9 +395,9 @@ print(envelope)
 
 
 #### <span style="color:red;">&#x2022;</span> Exceptions :
-- ValueError : Excpection raised if any value is invalid.
-- TypeError : Exception raised if any type is invalid.
-- EnvelopeSendingError : Exception raised if server return with error.
+- ***ValueError*** : Excpection raised if any value is invalid.
+- ***TypeError*** : Exception raised if any type is invalid.
+- ***EnvelopeSendingError*** : Exception raised if server return with error.
 
 #### <span style="color:green;">&#x2022;</span> Returned response :
 In response, Wesign provides a detailed envelope with signing URLs. Developers should use these URLs to sign the documents.
