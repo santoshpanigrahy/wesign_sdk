@@ -72,3 +72,9 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+
+[publish.testpy]
+repository = "https://test.pypi.org/legacy/"
+username = "__token__"
+password = "pypi-AgENdGVzdC5weXBpLm9yZwIkMjU5ZmQ3MDUtODNiNC00ZTAzLTljNjItMjk5NmM3N2ZiMDI4AAISWzEsWyJ3ZXNpZ24tc2RrIl1dAAIsWzIsWyI2ZjllYzdhOC0zNTExLTRiYTEtYWVmZi1kODhlNGZjZDNlMDgiXV0AAAYgZIVYZPnBs6xAeNAMNU62zmf_6cFoofkr0_NrUxnKA2E"
