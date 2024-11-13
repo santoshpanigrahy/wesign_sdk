@@ -1,9 +1,17 @@
 # Wesign SDK
 
-[![PyPI - Version](https://img.shields.io/pypi/v/wesign-sdk.svg)](https://pypi.org/project/wesign-sdk)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/wesign-sdk.svg)](https://pypi.org/project/wesign-sdk)
+<div align="center">
 
------
+<img src="https://wesign.odisoft.in/assets/images/logo.png" alt="Wesign logo" width="500" role="img">
+</div>
+
+
+
+<!-- [![PyPI - Version](https://img.shields.io/pypi/v/hatchling.svg?logo=pypi&label=PyPI&logoColor=gold)](https://pypi.org/project/hatchling/) [![PyPI - Downloads](https://img.shields.io/pypi/dm/hatchling.svg?color=blue&label=Downloads&logo=pypi&logoColor=gold)](https://pypi.org/project/hatchling/) [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/hatchling.svg?logo=python&label=Python&logoColor=gold)](https://pypi.org/project/hatchling/) 
+
+ -->
+
+---
 
 ## Table of Contents
 

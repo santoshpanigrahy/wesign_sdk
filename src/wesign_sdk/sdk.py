@@ -136,6 +136,7 @@ class WesignSDK:
             if response.status_code == 200:
                 res = response.json()
                 if res['status_code'] == 200:
+                    # print('Document Uploaded')
                     self.documents.append(res['result'])
                     return res
                 else:
@@ -943,6 +944,15 @@ class WesignSDK:
         else:
             request_object['enable_writing_id'] = False
             
+        if kwargs.get('send_email'):
+            if isinstance(kwargs.get('send_email'), bool):
+                request_object['send_email'] = kwargs.get('send_email')
+            else:
+                raise TypeError(f"Invalid send_email type. It should be a boolean (bool).")
+        else:
+            request_object['send_email'] = False
+            
+            
         if kwargs.get('auto_reminder'):
             if isinstance(kwargs.get('auto_reminder'), int):
                 request_object['auto_reminder'] = kwargs.get('auto_reminder')
@@ -1062,9 +1072,7 @@ class DocumentExtractor(WesignSDK):
         response = requests.request("GET", url, headers=headers)
         if response.status_code == 200:
             res = response.json()
-            # print(res)
             self.envelope_documents = res['envelope']['envelope_documents']
-            print(self.envelope_documents)
             return res['envelope']
         else:
             raise InvalidEnvelopeError()
@@ -1090,10 +1098,12 @@ class DocumentExtractor(WesignSDK):
                 headers = {
                 'api-key': self.api_key
                 }
-
                 response = requests.request("GET", url, headers=headers, data=payload)
+                
                 if response.status_code == 200:
+                    
                     res = response.json()
+                    
                     
                     file_url = res['url']
                     local_filename = doc.get('document_name')
@@ -1123,10 +1133,10 @@ class DocumentExtractor(WesignSDK):
 # wesign_sdk.upload_documents('/home/mayur/Downloads/aaa.pdf')
 
 
-# wesign_sdk = WesignSDK('https://dev.wesign.com','KDk8FTJBSsg5WrfPpyqIBelk8LzaGgnW8rM38npUWFrX3QOQC0s7zXQ7YdzuQtPuvOvIKah1zpXCAo73QB1NJHEIKucrGwPeS5R0IFyHbpfuQ24zolpmpeI4FSZzxEhfl70XvixyR5O343kO4PbquqVjUNs2GWOeBU5qpaxsxF92ohe4VNxhoNOTjgPARF0v4Iyz5lBR6HLrVb9xtrtpxDbOJgWXJd0QD1vPprdEL8Vr3tvc')
+wesign_sdk = WesignSDK('https://dev.wesign.com','fQycaFgWoGbv1JmBO8wkDXqYKAESjdnTMSEGDD3XzoF5GlqWw1lHWsHnA3GeEiKY5NAjjH0jj51RrAhaeCpL6AQYfhk3TXovmDESZ29XBaIwGhL0OurLPOOLChPBKeVLfSmxnW6Ac6fNOJt7o74BY23c4dKD8vDMKQOkyY454irnp9OMWUi3hGAcHZvvC0E4k1rsQBd2wlOWnC0IQiY1igpNcbXii0UmfKhQGVRd5Zx3sy7n')
 
 
-# wesign_sdk.upload_documents('/home/mayur/Downloads/claims agreement.pdf')
+wesign_sdk.upload_documents('/home/mayur/Downloads/claims agreement.pdf')
 
 
 
@@ -1145,234 +1155,111 @@ class DocumentExtractor(WesignSDK):
 # }]
 # }
 
-# data = {
-#         "recipient_name": "mayur",
-#         "recipient_email": "mayurbppatil@gmail.com",
-#         "action": "needs_to_sign",
-#         "meta_data": [
-#             {
-#                 "imageId": "page_1",
-#                 "page_no": 1,
-#                 "left": 1,
-#                 "top": 1,
-#                 "width": 100,
-#                 "height": 100,
-#                 "document_order":1,
-#                 "field_name": "signature",
-#                 "include_date_name": True,
-#                 "signature_with_border": True
-#             },
+data = {
+        "recipient_name": "mayur",
+        "recipient_email": "mayurbppatil@gmail.com",
+        "action": "needs_to_sign",
+        "meta_data": [
+            {
+                "page_no": 1,
+                "left": 1,
+                "top": 1,
+                "width": 100,
+                "height": 100,
+                "document_order":1,
+                "field_name": "signature",
+                "include_date_name": True,
+                "signature_with_border": True
+            },
             
-#             {
-#                 "imageId": "page_1",
-#                 "page_no": 1,
-#                 "left": 120,
-#                 "top": 1,
-#                 "width": 100,
-#                 "height": 100,
-#                 "document_order":1,
-#                 "field_name": "initial",
-#                 "include_date_name": None,
-#                 "initial_with_border": False
-#             },
+            {
+                "page_no": 1,
+                "left": 120,
+                "top": 1,
+                "width": 100,
+                "height": 100,
+                "document_order":1,
+                "field_name": "initial",
+                "include_date_name": None,
+                "initial_with_border": False
+            },
             
-#             {
-#                 "page_no": 1,
-#                 "left": 240,
-#                 "top": 1,
-#                 "width": 100,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "email",
-#                 "font_color" : "rgb(0,0,0)"
-#             },
+            {
+                "page_no": 1,
+                "left": 240,
+                "top": 1,
+                "width": 100,
+                "height": 20,
+                "document_order":1,
+                "field_name": "email",
+                "font_color" : "rgb(0,0,0)"
+            },
             
-#             {
-#                 "page_no": 1,
-#                 "left": 1,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "comment_text",
-#                 "font_color" : "rgb(0,0,0)"
-#             },
+            {
+                "page_no": 1,
+                "left": 1,
+                "top": 150,
+                "width": 100,
+                "height": 20,
+                "document_order":1,
+                "field_name": "comment_text",
+                "font_color" : "rgb(0,0,0)"
+            },
             
-#             {
-#                 "page_no": 1,
-#                 "left": 120,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "plain_text",
-#                 "font_color" : "rgb(0,0,0)",
-#                 "field_data" : "Field Data"
-#             },
+            {
+                "page_no": 1,
+                "left": 120,
+                "top": 150,
+                "width": 100,
+                "height": 20,
+                "document_order":1,
+                "field_name": "plain_text",
+                "font_color" : "rgb(0,0,0)",
+                "field_data" : "Field Data"
+            },
             
-#             {
-#                 "page_no": 1,
-#                 "left": 240,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 100,
-#                 "document_order":1,
-#                 "field_name": "drawing",
-#             },
+            {
+                "page_no": 1,
+                "left": 240,
+                "top": 150,
+                "width": 100,
+                "height": 100,
+                "document_order":1,
+                "field_name": "drawing",
+            },
             
-#             {
-#                 "page_no": 1,
-#                 "left": 1,
-#                 "top": 270,
-#                 "width": 20,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "attachment",
-#                 "required_field_checkbox": True
-#             },
+            {
+                "page_no": 1,
+                "left": 1,
+                "top": 270,
+                "width": 20,
+                "height": 20,
+                "document_order":1,
+                "field_name": "attachment",
+                "required_field_checkbox": True
+            },
             
-#             {
-#                 "page_no": 2,
-#                 "left": 1,
-#                 "top": 1,
-#                 "width": 100,
-#                 "height": 100,
-#                 "document_order":1,
-#                 "field_name": "signature",
-#                 "include_date_name": True,
-#                 "signature_with_border": True
-#             },
+           
             
-#             {
-#                 "page_no": 2,
-#                 "left": 120,
-#                 "top": 1,
-#                 "width": 100,
-#                 "height": 100,
-#                 "document_order":1,
-#                 "field_name": "initial",
-#                 "include_date_name": None,
-#                 "initial_with_border": False
-#             },
-            
-#             {
-#                 "page_no": 2,
-#                 "left": 240,
-#                 "top": 1,
-#                 "width": 100,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "email",
-#                 "font_color" : "rgb(0,0,0)"
-#             },
-            
-#             {
-#                 "page_no": 2,
-#                 "left": 1,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "comment_text",
-#                 "font_color" : "rgb(0,0,0)"
-#             },
-            
-#             {
-#                 "page_no": 2,
-#                 "left": 120,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 20,
-#                 "document_order":1,
-#                 "field_name": "plain_text",
-#                 "font_color" : "rgb(0,0,0)",
-#                 "field_data" : "Field Data"
-#             },
-            
-#             {
-#                 "page_no": 2,
-#                 "left": 240,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 100,
-#                 "document_order":1,
-#                 "field_name": "drawing",
-#             },
-            
-            
-            
-            
-            
-            
-#             {
-#                 "page_no": 3,
-#                 "left": 1,
-#                 "top": 150,
-#                 "width": 20,
-#                 "height": 20,
-#                 "field_name": "checkbox",
-#                 "document_order":2,
-#                 "is_checked": False
-#             }, {
-#                 "page_no": 3,
-#                 "left": 120,
-#                 "top": 150,
-#                 "width": 100,
-#                 "height": 20,
-#                 "field_name": "dropdown",
-#                 "field_data": "Gender,Female,Male,dont want to answer",
-#                 "document_order":2,
-#                 "font_size": 10
-#             }, {
-#                 "page_no": 3,
-#                 "left": 240,
-#                 "top": 150,
-#                 "width": 10,
-#                 "height": 10,
-#                 "field_name": "radio",
-#                 "field_data": "Male",
-#                 "document_order":2,
-#                 "group": "gender"
-                
-#             }, {
-#                 "page_no": 3,
-#                 "left": 240,
-#                 "top": 170,
-#                 "width": 10,
-#                 "height": 10,
-#                 "field_name": "radio",
-#                 "field_data": "Female",
-#                 "document_order":2,
-#                 "group": "gender"
-#             },
-#             {
-#                 "page_no": 1,
-#                 "left": 1,
-#                 "top": 270,
-#                 "width": 20,
-#                 "height": 20,
-#                 "document_order":2,
-#                 "field_name": "attachment",
-#                 "required_field_checkbox": True
-#             },
-#         ],
+        ],
         
-#     }
+    }
     
+# print(wesign_sdk.documents)
 
 # wesign_sdk.add_recipient(data)
 
-# response = wesign_sdk.send_envelope(subject='subject', expiry_date="2024-10-07", enable_comments = True, follow_signing_order=True, enable_writing_id=True, auto_reminder=0, number_of_reminders=2)
+# response = wesign_sdk.send_envelope(subject='subject', expiry_date="2024-12-07", enable_comments = True, follow_signing_order=True, enable_writing_id=True, auto_reminder=0, number_of_reminders=2, send_email=False)
 
 # print(wesign_sdk.get_sign_url('mayurbppatil@gmail.com'))
 # print(wesign_sdk.recipients)
 # print(wesign_sdk.documents)
 
 
-# wesign_doc = DocumentExtractor('https://dev.wesign.com','KDk8FTJBSsg5WrfPpyqIBelk8LzaGgnW8rM38npUWFrX3QOQC0s7zXQ7YdzuQtPuvOvIKah1zpXCAo73QB1NJHEIKucrGwPeS5R0IFyHbpfuQ24zolpmpeI4FSZzxEhfl70XvixyR5O343kO4PbquqVjUNs2GWOeBU5qpaxsxF92ohe4VNxhoNOTjgPARF0v4Iyz5lBR6HLrVb9xtrtpxDbOJgWXJd0QD1vPprdEL8Vr3tvc', 985)
+# wesign_doc = DocumentExtractor('https://dev.wesign.com','fQycaFgWoGbv1JmBO8wkDXqYKAESjdnTMSEGDD3XzoF5GlqWw1lHWsHnA3GeEiKY5NAjjH0jj51RrAhaeCpL6AQYfhk3TXovmDESZ29XBaIwGhL0OurLPOOLChPBKeVLfSmxnW6Ac6fNOJt7o74BY23c4dKD8vDMKQOkyY454irnp9OMWUi3hGAcHZvvC0E4k1rsQBd2wlOWnC0IQiY1igpNcbXii0UmfKhQGVRd5Zx3sy7n', 1163)
 # # print(wesign_doc.list_documents('/home/mayur/Documents/sdk_download'))
 
-# wesign_doc.download_documents('/home/mayur/Documents/sdk_download')
+# wesign_doc.download_documents('/home/mayur/Documents/')
 
 if __name__ == "__main__":
     # Code to execute if run as a script

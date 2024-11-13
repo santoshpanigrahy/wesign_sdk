@@ -38,9 +38,9 @@ dependencies = [
   ]
 
 [project.urls]
-Documentation = "https://github.com/Mayur Patil/wesign-sdk#readme"
-Issues = "https://github.com/Mayur Patil/wesign-sdk/issues"
-Source = "https://github.com/Mayur Patil/wesign-sdk"
+Documentation = "https://github.com/santoshpanigrahy/wesign_sdk?tab=readme-ov-file#wesign-sdk"
+Issues = "https://github.com/santoshpanigrahy/wesign_sdk/issues"
+Source = "https://github.com/santoshpanigrahy/wesign_sdk"
 
 [tool.hatch.version]
 path = "src/wesign_sdk/__about__.py"
