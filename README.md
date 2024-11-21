@@ -357,6 +357,8 @@ When sending the envelope, Wesign requires certain keyword arguments, which are 
 
 - **send_email_recipient** *(bool)* : Send email to recipient.
 
+- **follow_envelope_order** *(int)* : Provide the previous Envelope ID to initiate a follow-up signature request. (default : null)
+
 
 ```console
 from wesign_sdk.sdk import WesignSDK

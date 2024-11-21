@@ -952,6 +952,14 @@ class WesignSDK:
         else:
             request_object['send_email'] = False
             
+        if kwargs.get('follow_envelope_order'):
+            if isinstance(kwargs.get('follow_envelope_order'), int):
+                request_object['follow_envelope_order'] = kwargs.get('follow_envelope_order')
+            else:
+                return False, "Invalid follow_envelope_order type. It should be a integer (int)."
+        else:
+            request_object['follow_envelope_order'] = None
+            
             
         if kwargs.get('auto_reminder'):
             if isinstance(kwargs.get('auto_reminder'), int):
